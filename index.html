@@ -32,7 +32,7 @@
         </div>
     </body>
     <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="JS/bootstrap.min.js"></script>
     <script>
         var table = document.getElementById('tbody');
 
@@ -42,49 +42,43 @@
             document.execCommand('copy');
         };
 
-        [
-            {
-                'code': '\u202E',
-                'codeplain': '202E', // todo: replace with something dynamic
-                'name': 'RTL Override',
-                'description': 'Forces text to read right-to-left'
-            }
-        ]
-        .forEach((character) => {
-            var tr = document.createElement('tr');
-            var click = document.createElement('td');
-            click.setAttribute('class', 'click');
+        $.get('js/characters.json').then((characters) => {
+            characters.forEach((character) => {
+                var tr = document.createElement('tr');
+                var click = document.createElement('td');
+                click.setAttribute('class', 'click');
 
-            var btn = document.createElement('button');
-            btn.setAttribute('class', 'btn btn-success');
-            btn.innerText = "Copy to clipboard";
-            click.appendChild(btn);
+                var btn = document.createElement('button');
+                btn.setAttribute('class', 'btn btn-success');
+                btn.innerText = "Copy to clipboard";
+                click.appendChild(btn);
 
-            var text = document.createElement('input');
-            text.setAttribute('hidden', true);
-            text.setAttribute('type', 'text');
-            text.value = character.code;
-            click.appendChild(text);
+                var text = document.createElement('input');
+                text.setAttribute('hidden', true);
+                text.setAttribute('type', 'text');
+                text.value = character.code;
+                click.appendChild(text);
 
-            click.onclick = () => {
-                copy(text);
-            }
+                click.onclick = () => {
+                    copy(text);
+                }
 
-            tr.appendChild(click);
+                tr.appendChild(click);
 
-            var code = document.createElement('td');
-            code.innerText = character.codeplain;
-            tr.appendChild(code);
+                var code = document.createElement('td');
+                code.innerText = character.codeplain;
+                tr.appendChild(code);
 
-            var name = document.createElement('td');
-            name.innerText = character.name;
-            tr.appendChild(name);
+                var name = document.createElement('td');
+                name.innerText = character.name;
+                tr.appendChild(name);
 
-            var description = document.createElement('td');
-            description.innerText = character.description;
-            tr.appendChild(description);
+                var description = document.createElement('td');
+                description.innerText = character.description;
+                tr.appendChild(description);
 
-            table.appendChild(tr);
-        });
+                table.appendChild(tr);
+            });
+        }, (error) => {console.log(error)});
     </script>
 </html>

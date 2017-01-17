@@ -1,0 +1,8 @@
+[
+    {
+        "code": "\u202E",
+        "codeplain": "202E",
+        "name": "RTL Override",
+        "description": "Forces text to read right-to-left"
+    }
+]
